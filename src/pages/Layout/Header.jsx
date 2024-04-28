@@ -8,7 +8,7 @@ const Header = () => {
     state: { user },
   } = useContext(AuthContext);
   return (
-    <header className="w-full p-5 bg-tertiary-500 text-white flex flex-row justify-between gap-10 items-center">
+    <header className="w-full p-5 bg-primary-500 text-white flex flex-row justify-between gap-10 items-center">
       <Logo size="md" />
       <Link
         to={`/profile`}
@@ -16,11 +16,11 @@ const Header = () => {
         <div className="relative w-[50px] h-[50px]">
           <img
             className="rounded-full object-cover w-full h-full"
-            src={`/images/${user?.gender === "male" ? "profile" : "woman"}.png`}
+            src={`/images/profile.png`}
             alt="profile"
           />
         </div>
-        <span className="hidden md:flex text-text1-light md:text-body1-semibold text-primary-500">
+        <span className="hidden md:flex text-text1-light md:text-body1-semibold text-white">
           {user?.name}
         </span>
       </Link>

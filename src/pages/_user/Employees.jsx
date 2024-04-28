@@ -44,13 +44,12 @@ const Employees = () => {
                       <TableRow>
                         <TableHead>Id</TableHead>
                         <TableHead>Name</TableHead>
-                        <TableHead>Email</TableHead>
+                        <TableHead>Employee Id</TableHead>
+
                         <TableHead>Gender</TableHead>
                         <TableHead>Age</TableHead>
                         <TableHead>Salary</TableHead>
-                        <TableHead>Role</TableHead>
 
-                        <TableHead>Promote</TableHead>
                         <TableHead>Hire Date</TableHead>
 
                         <TableHead></TableHead>

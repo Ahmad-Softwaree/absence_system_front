@@ -2,77 +2,29 @@ import { UtilContext } from "@/context/UtilContext";
 import { CONTEXT_TYPEs } from "@/context";
 import { useContext } from "react";
 import { Loader } from ".";
-import {
-  useDeleteManager,
-  useMakeEmployee,
-  useMakeHighManager,
-} from "@/react-query/query/manager.query";
-import {
-  useDeleteEmployee,
-  useMakeManager,
-} from "@/react-query/query/employee.query";
-import { useDeletePet } from "@/react-query/query/pet.query";
-import { useAdopt, useBuy } from "@/react-query/query/shop.query";
+
+import { useDeleteEmployee } from "@/react-query/query/employee.query";
 
 export default function operation() {
   const {
     dispatch,
     state: { id, method, image, type, data },
   } = useContext(UtilContext);
-  const { mutateAsync: makeEmployee, isPending: makeEmployeeLoading } =
-    useMakeEmployee(id);
-  const { mutateAsync: makeHighManager, isPending: makeHighManagerLoading } =
-    useMakeHighManager(id);
-  const { mutateAsync: deleteManager, isPending: deleteManagerLoading } =
-    useDeleteManager(id);
-  const { mutateAsync: makeManager, isPending: makeManagerLoading } =
-    useMakeManager(id);
+
   const { mutateAsync: deleteEmployee, isPending: deleteEmployeeLoading } =
     useDeleteEmployee(id);
-  const { mutateAsync: deletePet, isPending: deletePetLoading } =
-    useDeletePet(id);
-  const { mutateAsync: adopt, isPending: adoptLoading } = useAdopt(id);
-  const { mutateAsync: buy, isPending: buyLoading } = useBuy(id);
-  const flag = Boolean(
-    makeEmployeeLoading ||
-      makeHighManagerLoading ||
-      deleteManagerLoading ||
-      makeManagerLoading ||
-      deleteEmployeeLoading ||
-      deletePetLoading ||
-      adoptLoading ||
-      buyLoading
-  );
+
+  const flag = Boolean(deleteEmployeeLoading);
 
   return (
     <form
       onSubmit={async (e) => {
         e.preventDefault();
         switch (method) {
-          case CONTEXT_TYPEs.MAKE_EMPLOYEE:
-            await makeEmployee();
-            break;
-          case CONTEXT_TYPEs.MAKE_HIGH_MANAGER:
-            await makeHighManager();
-            break;
-          case CONTEXT_TYPEs.DELETE_MANAGER:
-            await deleteManager();
-            break;
           case CONTEXT_TYPEs.DELETE_EMPLOYEE:
             await deleteEmployee();
             break;
-          case CONTEXT_TYPEs.MAKE_MANAGER:
-            await makeManager();
-            break;
-          case CONTEXT_TYPEs.DELETE_PET:
-            await deletePet({ image });
-            break;
-          case CONTEXT_TYPEs.ADOPT:
-            await adopt(data);
-            break;
-          case CONTEXT_TYPEs.BUY:
-            await buy(data);
-            break;
+
           default:
             break;
         }

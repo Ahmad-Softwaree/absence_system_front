@@ -1,3 +1,4 @@
+import { useGetEmployees } from "@/react-query/query/employee.query";
 import { useEffect } from "react";
 import { useInView } from "react-intersection-observer";
 
@@ -10,7 +11,7 @@ const Pagination = ({ children, page }) => {
     isLoading,
     fetchNextPage,
     refetch,
-  } = null;
+  } = page === "employee" ? useGetEmployees() : null;
 
   useEffect(() => {
     if (inView && hasNextPage) fetchNextPage();

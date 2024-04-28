@@ -20,7 +20,7 @@ const LoginForm = () => {
         formRef.current.reset();
       }}
       className="flex flex-col justify-between items-center m-auto py-5 h-fit rounded-md text-white gap-5 w-full">
-      <h1 className="text-body1-bold mb-10">Login</h1>
+      <h1 className="text-body1-bold text-black mb-10">Login</h1>
       <input
         ref={email}
         name="email"

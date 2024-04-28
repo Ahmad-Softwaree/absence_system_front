@@ -19,10 +19,6 @@ const ProfileForm = () => {
   } = useContext(UiContext);
   const name = useRef();
   const email = useRef();
-  const phone = useRef();
-  const age = useRef();
-  const gender = useRef();
-  const salary = useRef();
   const password = useRef();
 
   const formRef = useRef();
@@ -30,10 +26,6 @@ const ProfileForm = () => {
     if (data) {
       name.current.value = data?.name;
       email.current.value = data?.email;
-      phone.current.value = data?.phone;
-      age.current.value = data?.age;
-      gender.current.value = data?.gender;
-      salary.current.value = data?.salary;
     }
   }, [data]);
 
@@ -45,10 +37,6 @@ const ProfileForm = () => {
         await mutateAsync({
           name: name.current.value,
           email: email.current.value,
-          phone: phone.current.value,
-          age: age.current.value,
-          gender: gender.current.value,
-          salary: salary.current.value,
           password: password.current.value,
         });
         formRef.current.reset();
@@ -69,29 +57,6 @@ const ProfileForm = () => {
       <FormControl>
         <FormLabel>Password</FormLabel>
         <Input ref={password} type="password" />
-      </FormControl>
-      <FormControl>
-        <FormLabel>Phone</FormLabel>
-        <Input ref={phone} type="text" />
-      </FormControl>
-      <FormControl>
-        <FormLabel>Age</FormLabel>
-        <Input ref={age} type="number" />
-      </FormControl>
-      <FormControl>
-        <FormLabel>Salary</FormLabel>
-        <Input ref={salary} type="number" />
-      </FormControl>
-      <FormControl>
-        <FormLabel>Gender</FormLabel>
-        <Select ref={gender} placeholder="Select Gender">
-          <option className="text-primary-500" value="male">
-            Male
-          </option>
-          <option className="text-primary-500" value="female">
-            Female
-          </option>
-        </Select>
       </FormControl>
 
       <button

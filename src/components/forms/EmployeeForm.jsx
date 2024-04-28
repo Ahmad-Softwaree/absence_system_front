@@ -1,9 +1,11 @@
 import { UiContext } from "@/context/UiContext";
 import React, { useContext, useEffect, useRef } from "react";
 import { FormControl, FormLabel, Input, Select } from "@chakra-ui/react";
-import { useRegister } from "@/react-query/query/auth.query";
 import { CONTEXT_TYPEs } from "@/context";
-import { useUpdateEmployee } from "@/react-query/query/employee.query";
+import {
+  useAddEmployee,
+  useUpdateEmployee,
+} from "@/react-query/query/employee.query";
 import { Loader } from "../shared";
 const EmployeeForm = () => {
   const {
@@ -11,21 +13,18 @@ const EmployeeForm = () => {
     state: { data, id, type },
   } = useContext(UiContext);
   const { mutateAsync, isPending } =
-    type !== "update" ? useRegister() : useUpdateEmployee(id);
+    type !== "update" ? useAddEmployee() : useUpdateEmployee(id);
   const name = useRef();
-  const email = useRef();
-  const phone = useRef();
+  const address = useRef();
   const age = useRef();
   const gender = useRef();
   const salary = useRef();
-  const password = useRef();
   const formRef = useRef();
 
   useEffect(() => {
     if (data && type === "update") {
       name.current.value = data?.name;
-      email.current.value = data?.email;
-      phone.current.value = data?.phone;
+      address.current.value = data?.address;
       age.current.value = data?.age;
       gender.current.value = data?.gender;
       salary.current.value = data?.salary;
@@ -39,13 +38,10 @@ const EmployeeForm = () => {
         e.preventDefault();
         await mutateAsync({
           name: name.current.value,
-          email: email.current.value,
-          phone: phone.current.value,
+          address: address.current.value,
           age: age.current.value,
           gender: gender.current.value,
           salary: salary.current.value,
-          password: password.current.value,
-          role: "employee",
         });
         formRef.current.reset();
         dispatch({
@@ -61,16 +57,8 @@ const EmployeeForm = () => {
         <Input ref={name} type="text" />
       </FormControl>
       <FormControl>
-        <FormLabel>Email</FormLabel>
-        <Input ref={email} type="email" />
-      </FormControl>
-      <FormControl>
-        <FormLabel>Password</FormLabel>
-        <Input ref={password} type="password" />
-      </FormControl>
-      <FormControl>
-        <FormLabel>Phone</FormLabel>
-        <Input ref={phone} type="text" />
+        <FormLabel>address</FormLabel>
+        <Input ref={address} type="text" />
       </FormControl>
       <FormControl>
         <FormLabel>Age</FormLabel>

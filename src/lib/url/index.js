@@ -11,20 +11,12 @@ export const URLs = {
 
   UPDATE_PROFILE: `${API}/auth/profile`,
 
-  //MANAGER
-
-  GET_MANAGERS: `${API}/manager`,
-  GET_MANAGER: `${API}/manager`,
-  UPDATE_MANAGER: `${API}/manager`,
-  DELETE_MANAGER: `${API}/manager`,
-  MAKE_EMPLOYEE: `${API}/manager/employee`,
-  MAKE_HIGH_MANAGER: `${API}/manager/high_manager`,
-
   //EMPLOYEE
 
   GET_EMPLOYEES: `${API}/employee`,
   GET_EMPLOYEE: `${API}/employee`,
+  ADD_EMPLOYEE: `${API}/employee`,
+
   UPDATE_EMPLOYEE: `${API}/employee`,
   DELETE_EMPLOYEE: `${API}/employee`,
-  MAKE_MANAGER: `${API}/employee/manager`,
 };

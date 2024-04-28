@@ -6,10 +6,10 @@ import {
   useQueryClient,
 } from "@tanstack/react-query";
 import {
+  addEmployee,
   deleteEmployee,
   getEmployee,
   getEmployees,
-  makeManager,
   updateEmployee,
 } from "../action/employee.action";
 import { generateToast } from "@/lib/functions";
@@ -36,16 +36,16 @@ export function useGetEmployee(id) {
   });
 }
 
-export function useMakeManager(id) {
+export function useAddEmployee() {
   const { toast } = useToast();
   const queryClient = useQueryClient();
   return useMutation({
-    mutationFn: () => makeManager(id),
-    onSuccess: () => {
+    mutationFn: (form) => addEmployee(form),
+    onSuccess: (data) => {
       queryClient.invalidateQueries([QUERY_KEYS.EMPLOYEES]);
       return toast({
         title: "Success",
-        description: "Employee Update Successfully",
+        description: "Employee Added Successfully",
       });
     },
     onError: (error) => {

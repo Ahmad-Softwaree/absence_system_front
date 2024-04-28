@@ -14,26 +14,12 @@ export default function EmployeeCard({ index, val }) {
     <TableRow>
       <TableCell>{val.id}</TableCell>
       <TableCell>{val?.name}</TableCell>
-      <TableCell>{val?.email}</TableCell>
+      <TableCell>{val.e_id}</TableCell>
+
       <TableCell>{val?.gender}</TableCell>
       <TableCell>{val?.age}</TableCell>
-      <TableCell>{val?.salary}</TableCell>
-      <TableCell>{val?.role}</TableCell>
-      <TableCell>
-        <button
-          onClick={() =>
-            util({
-              type: CONTEXT_TYPEs.OPERATION,
-              payload: {
-                id: val.id,
-                method: CONTEXT_TYPEs.MAKE_MANAGER,
-              },
-            })
-          }
-          className="p-2 px-4 rounded-md bg-tertiary-500 text-white">
-          Make Manager
-        </button>
-      </TableCell>
+      <TableCell>$ {val?.salary}</TableCell>
+
       <TableCell>{convertTimeStampToDate(val?.created_at)}</TableCell>
       <TableCell>
         <Update
@@ -50,7 +36,7 @@ export default function EmployeeCard({ index, val }) {
           variant="tertiary"
           size="sm"
         />
-      </TableCell>{" "}
+      </TableCell>
       <TableCell>
         <Delete
           onClick={() =>

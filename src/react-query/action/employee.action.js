@@ -7,7 +7,6 @@ export const getEmployees = async (toast, pageParam) => {
     const {
       data: { data },
     } = await authApi.get(`${URLs.GET_EMPLOYEES}?pages=${pageParam}`);
-
     return data;
   } catch (error) {
     const errors = generateToast(error);
@@ -38,12 +37,11 @@ export const getEmployee = async (toast, id) => {
   }
 };
 
-export const makeManager = async (id) => {
+export const addEmployee = async (form) => {
   try {
     const {
       data: { data },
-    } = await authApi.put(`${URLs.MAKE_MANAGER}/${id}`);
-
+    } = await authApi.post(`${URLs.ADD_EMPLOYEE}`, form);
     return data;
   } catch (error) {
     throw error;
