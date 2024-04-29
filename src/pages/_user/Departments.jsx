@@ -10,27 +10,27 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import EmployeeGrid from "@/containers/_user/EmployeeGrid";
+import DepartmentGrid from "@/containers/_user/DepartmentGrid";
 import { UiContext } from "@/context/UiContext";
 import { CONTEXT_TYPEs } from "@/context";
 
-const Employees = () => {
+const Departments = () => {
   const { dispatch } = useContext(UiContext);
   return (
     <div className="w-full flex flex-col justify-center items-center  p-5 h-full gap-5 py-30">
       <h1 className="text-white-500 text-sub-heading1-semibold font-bold">
-        Employees
+        Departments
       </h1>
       <button
         onClick={() => {
           dispatch({
-            type: CONTEXT_TYPEs.EMPLOYEE_FORM,
+            type: CONTEXT_TYPEs.DEPARTMENT_FORM,
           });
         }}
         className="p-2 px-4 rounded-md bg-tertiary-500 text-white mt-5">
-        Add Employee
+        Add Department
       </button>
-      <Pagination page={`employee`}>
+      <Pagination page={`department`}>
         {({ isFetchingNextPage, data, hasNextPage, isLoading, ref }) => {
           return (
             <>
@@ -39,20 +39,14 @@ const Employees = () => {
               ) : data?.pages?.some((arr) => arr.length > 0) ? (
                 <>
                   <Table>
-                    <TableCaption>Employees</TableCaption>
+                    <TableCaption>Departments</TableCaption>
                     <TableHeader>
                       <TableRow>
                         <TableHead>Id</TableHead>
                         <TableHead>Name</TableHead>
                         <TableHead>Employee Id</TableHead>
 
-                        <TableHead>Gender</TableHead>
-                        <TableHead>Age</TableHead>
-                        <TableHead>Salary</TableHead>
-
-                        <TableHead>Hire Date</TableHead>
-                        <TableHead>In</TableHead>
-                        <TableHead>Out</TableHead>
+                        <TableHead>Create Date</TableHead>
 
                         <TableHead></TableHead>
                         <TableHead></TableHead>
@@ -61,7 +55,7 @@ const Employees = () => {
                     <TableBody>
                       {data.pages.map((row, index) => {
                         return (
-                          <EmployeeGrid key={index} page={index} row={row} />
+                          <DepartmentGrid key={index} page={index} row={row} />
                         );
                       })}
                     </TableBody>
@@ -83,4 +77,4 @@ const Employees = () => {
   );
 };
 
-export default Employees;
+export default Departments;

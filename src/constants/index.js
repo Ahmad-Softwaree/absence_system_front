@@ -4,4 +4,9 @@ export const homeParts = [
     image: "/images/team.png",
     text: "Employees",
   },
+  {
+    link: "/departments",
+    image: "/images/office-building.png",
+    text: "Departments",
+  },
 ];

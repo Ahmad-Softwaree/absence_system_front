@@ -4,6 +4,7 @@ import { useContext } from "react";
 import { Loader } from ".";
 
 import { useDeleteEmployee } from "@/react-query/query/employee.query";
+import { useCheckIn, useCheckOut } from "@/react-query/query/absence.query";
 
 export default function operation() {
   const {
@@ -13,8 +14,16 @@ export default function operation() {
 
   const { mutateAsync: deleteEmployee, isPending: deleteEmployeeLoading } =
     useDeleteEmployee(id);
-
-  const flag = Boolean(deleteEmployeeLoading);
+  const { mutateAsync: deleteDepartment, isPending: deleteDepartmentLoading } =
+    useDeleteEmployee(id);
+  const { mutateAsync: checkIn, isPending: checkInLoading } = useCheckIn(id);
+  const { mutateAsync: checkOut, isPending: checkOutLoading } = useCheckOut(id);
+  const flag = Boolean(
+    deleteEmployeeLoading ||
+      deleteDepartmentLoading ||
+      checkInLoading ||
+      checkOutLoading
+  );
 
   return (
     <form
@@ -24,7 +33,15 @@ export default function operation() {
           case CONTEXT_TYPEs.DELETE_EMPLOYEE:
             await deleteEmployee();
             break;
-
+          case CONTEXT_TYPEs.DELETE_DEPARTMENT:
+            await deleteDepartment();
+            break;
+          case CONTEXT_TYPEs.CHECK_IN:
+            await checkIn();
+            break;
+          case CONTEXT_TYPEs.CHECK_OUT:
+            await checkOut();
+            break;
           default:
             break;
         }

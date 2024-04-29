@@ -6,54 +6,76 @@ import {
   useQueryClient,
 } from "@tanstack/react-query";
 import {
-  addEmployee,
-  deleteEmployee,
-  getEmployee,
-  getEmployees,
-  getEmployeesSelect,
-  updateEmployee,
-} from "../action/employee.action";
+  checkCheckIn,
+  checkCheckOut,
+  checkIn,
+  checkOut,
+  deleteAbsence,
+  getAbsence,
+  getAbsenceOfEmployee,
+  getAbsences,
+} from "../action/absence.action";
 import { generateToast } from "@/lib/functions";
 import { useToast } from "@/components/ui/use-toast";
 
-export function useGetEmployees() {
+export function useGetAbsences() {
   const { toast } = useToast();
   return useInfiniteQuery({
-    queryKey: [QUERY_KEYS.EMPLOYEES],
-    queryFn: ({ pageParam = 1 }) => getEmployees(toast, pageParam),
+    queryKey: [QUERY_KEYS.ABSENCES],
+    queryFn: ({ pageParam = 1 }) => getAbsences(toast, pageParam),
     getNextPageParam: (lastPage, allPages) => {
       return lastPage.length > 0 ? allPages.length + 1 : undefined;
     },
     retry: 0,
   });
 }
-export function useGetEmployeesSelect(id) {
+export function useGetAbsencesOfEmployee() {
   const { toast } = useToast();
-  return useQuery({
-    queryKey: [QUERY_KEYS.EMPLOYEES_SELECT],
-    queryFn: () => getEmployeesSelect(toast, id),
+  return useInfiniteQuery({
+    queryKey: [QUERY_KEYS.ABSENCES_OF_EMPLOYEE],
+    queryFn: ({ pageParam = 1 }) => getAbsenceOfEmployee(toast, pageParam),
+    getNextPageParam: (lastPage, allPages) => {
+      return lastPage.length > 0 ? allPages.length + 1 : undefined;
+    },
     retry: 0,
   });
 }
-export function useGetEmployee(id) {
+export function useGetAbsence(id) {
   const { toast } = useToast();
   return useQuery({
-    queryKey: [QUERY_KEYS.EMPLOYEE],
-    queryFn: () => getEmployee(toast, id),
+    queryKey: [QUERY_KEYS.ABSENCE, id],
+    queryFn: () => getAbsence(toast, id),
     retry: 0,
   });
 }
 
-export function useAddEmployee() {
+export function useCheckCheckIn(e_log_id) {
+  const { toast } = useToast();
+  return useQuery({
+    queryKey: [QUERY_KEYS.CHECK_CHECK_IN, e_log_id],
+    queryFn: () => checkCheckIn(toast, e_log_id),
+    retry: 0,
+  });
+}
+export function useCheckCheckOut(e_log_id) {
+  const { toast } = useToast();
+  return useQuery({
+    queryKey: [QUERY_KEYS.CHECK_CHECK_OUT, e_log_id],
+    queryFn: () => checkCheckOut(toast, e_log_id),
+    retry: 0,
+  });
+}
+
+export function useCheckIn(e_log_id) {
   const { toast } = useToast();
   const queryClient = useQueryClient();
   return useMutation({
-    mutationFn: (form) => addEmployee(form),
+    mutationFn: () => checkIn(e_log_id),
     onSuccess: (data) => {
-      queryClient.invalidateQueries([QUERY_KEYS.EMPLOYEES]);
+      queryClient.invalidateQueries([QUERY_KEYS.ABSENCES]);
       return toast({
         title: "Success",
-        description: "Employee Added Successfully",
+        description: "Successfully",
       });
     },
     onError: (error) => {
@@ -68,16 +90,16 @@ export function useAddEmployee() {
   });
 }
 
-export function useUpdateEmployee(id) {
+export function useCheckOut(e_log_id) {
   const { toast } = useToast();
   const queryClient = useQueryClient();
   return useMutation({
-    mutationFn: (form) => updateEmployee(id, form),
+    mutationFn: () => checkOut(e_log_id),
     onSuccess: (data) => {
-      queryClient.invalidateQueries([QUERY_KEYS.EMPLOYEES]);
+      queryClient.invalidateQueries([QUERY_KEYS.ABSENCES]);
       return toast({
         title: "Success",
-        description: "Employee Update Successfully",
+        description: "Successfully",
       });
     },
     onError: (error) => {
@@ -91,17 +113,16 @@ export function useUpdateEmployee(id) {
     },
   });
 }
-
-export function useDeleteEmployee(id) {
+export function useDeleteAbsence(id) {
   const { toast } = useToast();
   const queryClient = useQueryClient();
   return useMutation({
-    mutationFn: () => deleteEmployee(id),
+    mutationFn: () => deleteAbsence(id),
     onSuccess: (data) => {
-      queryClient.invalidateQueries([QUERY_KEYS.EMPLOYEES]);
+      queryClient.invalidateQueries([QUERY_KEYS.ABSENCES]);
       return toast({
         title: "Success",
-        description: "Employee Deleted Successfully",
+        description: "Absence Deleted Successfully",
       });
     },
     onError: (error) => {

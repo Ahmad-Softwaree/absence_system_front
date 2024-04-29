@@ -6,54 +6,46 @@ import {
   useQueryClient,
 } from "@tanstack/react-query";
 import {
-  addEmployee,
-  deleteEmployee,
-  getEmployee,
-  getEmployees,
-  getEmployeesSelect,
-  updateEmployee,
-} from "../action/employee.action";
+  addDepartment,
+  deleteDepartment,
+  getDepartment,
+  getDepartments,
+  updateDepartment,
+} from "../action/department.action";
 import { generateToast } from "@/lib/functions";
 import { useToast } from "@/components/ui/use-toast";
 
-export function useGetEmployees() {
+export function useGetDepartments() {
   const { toast } = useToast();
   return useInfiniteQuery({
-    queryKey: [QUERY_KEYS.EMPLOYEES],
-    queryFn: ({ pageParam = 1 }) => getEmployees(toast, pageParam),
+    queryKey: [QUERY_KEYS.DEPARTMENTS],
+    queryFn: ({ pageParam = 1 }) => getDepartments(toast, pageParam),
     getNextPageParam: (lastPage, allPages) => {
       return lastPage.length > 0 ? allPages.length + 1 : undefined;
     },
     retry: 0,
   });
 }
-export function useGetEmployeesSelect(id) {
+
+export function useGetDepartment(id) {
   const { toast } = useToast();
   return useQuery({
-    queryKey: [QUERY_KEYS.EMPLOYEES_SELECT],
-    queryFn: () => getEmployeesSelect(toast, id),
-    retry: 0,
-  });
-}
-export function useGetEmployee(id) {
-  const { toast } = useToast();
-  return useQuery({
-    queryKey: [QUERY_KEYS.EMPLOYEE],
-    queryFn: () => getEmployee(toast, id),
+    queryKey: [QUERY_KEYS.DEPARTMENT],
+    queryFn: () => getDepartment(toast, id),
     retry: 0,
   });
 }
 
-export function useAddEmployee() {
+export function useAddDepartment() {
   const { toast } = useToast();
   const queryClient = useQueryClient();
   return useMutation({
-    mutationFn: (form) => addEmployee(form),
+    mutationFn: (form) => addDepartment(form),
     onSuccess: (data) => {
-      queryClient.invalidateQueries([QUERY_KEYS.EMPLOYEES]);
+      queryClient.invalidateQueries([QUERY_KEYS.DEPARTMENTS]);
       return toast({
         title: "Success",
-        description: "Employee Added Successfully",
+        description: "Department Added Successfully",
       });
     },
     onError: (error) => {
@@ -68,16 +60,16 @@ export function useAddEmployee() {
   });
 }
 
-export function useUpdateEmployee(id) {
+export function useUpdateDepartment(id) {
   const { toast } = useToast();
   const queryClient = useQueryClient();
   return useMutation({
-    mutationFn: (form) => updateEmployee(id, form),
+    mutationFn: (form) => updateDepartment(id, form),
     onSuccess: (data) => {
-      queryClient.invalidateQueries([QUERY_KEYS.EMPLOYEES]);
+      queryClient.invalidateQueries([QUERY_KEYS.DEPARTMENTS]);
       return toast({
         title: "Success",
-        description: "Employee Update Successfully",
+        description: "Department Update Successfully",
       });
     },
     onError: (error) => {
@@ -92,16 +84,16 @@ export function useUpdateEmployee(id) {
   });
 }
 
-export function useDeleteEmployee(id) {
+export function useDeleteDepartment(id) {
   const { toast } = useToast();
   const queryClient = useQueryClient();
   return useMutation({
-    mutationFn: () => deleteEmployee(id),
+    mutationFn: () => deleteDepartment(id),
     onSuccess: (data) => {
-      queryClient.invalidateQueries([QUERY_KEYS.EMPLOYEES]);
+      queryClient.invalidateQueries([QUERY_KEYS.DEPARTMENTS]);
       return toast({
         title: "Success",
-        description: "Employee Deleted Successfully",
+        description: "Department Deleted Successfully",
       });
     },
     onError: (error) => {

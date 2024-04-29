@@ -15,6 +15,7 @@ import {
 import AuthRouterProvider from "@/provider/AuthRouterProvider";
 import Profile from "@/pages/_user/Profile";
 import Employees from "@/pages/_user/Employees";
+import Departments from "@/pages/_user/Departments";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -45,6 +46,11 @@ const router = createBrowserRouter(
             path="employees"
             errorElement={<Error />}
             element={<Employees />}
+          />
+          <Route
+            path="departments"
+            errorElement={<Error />}
+            element={<Departments />}
           />
         </Route>
       </>

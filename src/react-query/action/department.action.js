@@ -2,11 +2,11 @@ import { authApi } from "@/lib/config/api.config";
 import { generateToast } from "@/lib/functions";
 import { URLs } from "@/lib/url";
 
-export const getEmployees = async (toast, pageParam) => {
+export const getDepartments = async (toast, pageParam) => {
   try {
     const {
       data: { data },
-    } = await authApi.get(`${URLs.GET_EMPLOYEES}?pages=${pageParam}`);
+    } = await authApi.get(`${URLs.GET_DEPARTMENTS}?pages=${pageParam}`);
     return data;
   } catch (error) {
     const errors = generateToast(error);
@@ -18,28 +18,12 @@ export const getEmployees = async (toast, pageParam) => {
     });
   }
 };
-export const getEmployeesSelect = async (toast) => {
-  try {
-    const {
-      data: { data },
-    } = await authApi.get(`${URLs.GET_EMPLOYEES_SELECT}`);
 
-    return data;
-  } catch (error) {
-    const errors = generateToast(error);
-    return errors.forEach((err) => {
-      toast({
-        title: err.title,
-        description: err.description,
-      });
-    });
-  }
-};
-export const getEmployee = async (toast, id) => {
+export const getDepartment = async (toast, id) => {
   try {
     const {
       data: { data },
-    } = await authApi.get(`${URLs.GET_EMPLOYEE}/${id}`);
+    } = await authApi.get(`${URLs.GET_DEPARTMENT}/${id}`);
 
     return data;
   } catch (error) {
@@ -53,33 +37,33 @@ export const getEmployee = async (toast, id) => {
   }
 };
 
-export const addEmployee = async (form) => {
+export const addDepartment = async (form) => {
   try {
     const {
       data: { data },
-    } = await authApi.post(`${URLs.ADD_EMPLOYEE}`, form);
+    } = await authApi.post(`${URLs.ADD_DEPARTMENT}`, form);
     return data;
   } catch (error) {
     throw error;
   }
 };
 
-export const updateEmployee = async (id, form) => {
+export const updateDepartment = async (id, form) => {
   try {
     const {
       data: { data },
-    } = await authApi.put(`${URLs.UPDATE_EMPLOYEE}/${id}`, form);
+    } = await authApi.put(`${URLs.UPDATE_DEPARTMENT}/${id}`, form);
     return data;
   } catch (error) {
     throw error;
   }
 };
 
-export const deleteEmployee = async (id) => {
+export const deleteDepartment = async (id) => {
   try {
     const {
       data: { data },
-    } = await authApi.delete(`${URLs.DELETE_EMPLOYEE}/${id}`);
+    } = await authApi.delete(`${URLs.DELETE_DEPARTMENT}/${id}`);
     return data;
   } catch (error) {
     throw error;

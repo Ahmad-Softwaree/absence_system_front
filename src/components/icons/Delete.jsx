@@ -19,7 +19,7 @@ const Delete = ({
       {({ color, width }) => {
         return (
           <span className={`${width} ${color}`}>
-            <i class="fa-solid fa-trash"></i>
+            <i className="fa-solid fa-trash"></i>
           </span>
         );
       }}

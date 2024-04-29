@@ -6,6 +6,7 @@ export const uiState = {
   data: null,
   profile: false,
   employee: false,
+  department: false,
 };
 
 export const uiReducer = (state = uiState, action) => {
@@ -21,6 +22,7 @@ export const uiReducer = (state = uiState, action) => {
         profile: false,
 
         employee: false,
+        department: false,
       };
 
     case CONTEXT_TYPEs.PROFILE_FORM:
@@ -39,6 +41,14 @@ export const uiReducer = (state = uiState, action) => {
         id: payload?.id,
         data: payload?.data,
         employee: !state.employee,
+      };
+    case CONTEXT_TYPEs.DEPARTMENT_FORM:
+      return {
+        ...state,
+        type: payload?.type,
+        id: payload?.id,
+        data: payload?.data,
+        department: !state.department,
       };
 
     default:

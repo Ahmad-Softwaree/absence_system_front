@@ -19,7 +19,7 @@ const Update = ({
       {({ color, width }) => {
         return (
           <span className={`${width} ${color}`}>
-            <i class="fa-solid fa-pen-to-square"></i>{" "}
+            <i className="fa-solid fa-pen-to-square"></i>{" "}
           </span>
         );
       }}
